@@ -6,7 +6,7 @@ class Transaction {
     this.inputs = inputs;
     this.outputs = outputs;
     this.size = inputs.length * 180 + outputs.length * 34 + 10;
-    this.hash = SHA256(`${this.inputs}${this.outputs}${this.size}`).toString();
+    this.hash = SHA256(`${JSON.stringify(inputs)}${JSON.stringify(outputs)}${this.size}`).toString();
   }
 
   execute() {

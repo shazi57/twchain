@@ -49,11 +49,17 @@ const mine = (options = 'auto') => {
     newBlock.nonce += 1;
   }
 
+  // Set merkle root
+
+  newBlock.setMerkleRoot();
+
   console.log(`miner ${minerIndex} mined a new block with nonce ${newBlock.nonce} and hash ${newBlock.getHash()}`);
 
   Object.assign(newBlock, { hash: newBlock.getHash() });
   db.push('/mempool', mempool);
   db.push('/blocks[]', newBlock);
+  const unspentUTXOs = db.getData('/utxos').filter((utxo) => !utxo.spent);
+  db.push('/utxos', unspentUTXOs);
   if (options === 'auto') {
     setTimeout(mine, 5000);
   }
