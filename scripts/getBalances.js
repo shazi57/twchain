@@ -1,6 +1,7 @@
 const client = require('./client');
+// console.log(client);
 
-client.post('/mining', { action: 'start' })
+client.get('/balances')
   .then((res) => {
     // console.log(res);
     console.log(res.data);

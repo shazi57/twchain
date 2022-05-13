@@ -11,5 +11,8 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    'no-loop-func': 'off',
+    'no-console': 'off',
+    'no-use-before-define': 'off',
   },
 };
