@@ -71,6 +71,7 @@ app.listen(process.env.PORT, () => {
     utxos: [],
     nodes: [],
     mempool: [],
+    transactionPool: [],
   });
 
   generateMiners();

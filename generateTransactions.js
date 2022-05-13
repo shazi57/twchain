@@ -47,7 +47,7 @@ const generateTransactions = () => {
   const resUtxos = inputUtxos.map((utxo) => new UTXO(utxo.owner, utxo.amount));
   const outputUtxo1 = new UTXO(randomRecipient.address, randomAmountToSend);
   const outputUtxo2 = new UTXO(randomSender.address, sumUtxo - randomAmountToSend);
-  const tx = new Transaction(resUtxos, [outputUtxo1, outputUtxo2]);
+  const tx = new Transaction(resUtxos, [outputUtxo1, outputUtxo2], 'mempool');
 
   tx.execute();
   db.push('/mempool[]', tx);
