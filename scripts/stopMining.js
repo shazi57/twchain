@@ -1,5 +1,4 @@
 const client = require('./client');
-// console.log(client);
 
 client.post('/mining', { action: 'stop' })
   .then((res) => {
