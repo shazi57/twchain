@@ -25,11 +25,12 @@ const mine = (options = 'auto') => {
   }
   // Select random miner from db
   const minerIndex = Math.floor(Math.random() * NUM_MINERS);
+  const blockNumber = db.getData('/blocks').length;
   const miner = db.getData('/nodes')[minerIndex];
   const newBlock = new Block();
 
   const outputUtxo = new UTXO(miner.address, COINBASE_REWARDS);
-  const transaction = new Transaction([], [outputUtxo]);
+  const transaction = new Transaction([], [outputUtxo], blockNumber);
 
   // iterate mempool
   // include transaction
@@ -40,7 +41,7 @@ const mine = (options = 'auto') => {
   const mempool = db.getData('/mempool');
   while (space < BLOCK_SPACE && mempool.length > 0) {
     const tx = mempool.shift();
-    const newTx = new Transaction(tx.inputs, tx.outputs);
+    const newTx = new Transaction(tx.inputs, tx.outputs, blockNumber);
     newBlock.addTransaction(newTx);
     space += tx.size;
   }

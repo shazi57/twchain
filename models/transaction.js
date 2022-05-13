@@ -2,11 +2,15 @@ const SHA256 = require('crypto-js/sha256');
 const db = require('../db');
 
 class Transaction {
-  constructor(inputs, outputs) {
+  constructor(inputs, outputs, blockNumber) {
     this.inputs = inputs;
     this.outputs = outputs;
     this.size = inputs.length * 180 + outputs.length * 34 + 10;
-    this.hash = SHA256(`${JSON.stringify(inputs)}${JSON.stringify(outputs)}${this.size}`).toString();
+    this.blockNumber = blockNumber;
+  }
+
+  getHash() {
+    return SHA256(`${JSON.stringify(this.inputs)}${JSON.stringify(this.outputs)}${this.size}${this.blockNumber}`).toString();
   }
 
   execute() {
